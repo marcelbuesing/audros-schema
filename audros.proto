@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package audros;
+
+/*service recieving sensor measurements*/
+service SensorService {
+  rpc PutTemperature(Temperature) returns (TemperatureResponse) {}
+  rpc PutBarometicPressure(BarometricPressure) returns (BarometricPressureResponse) {}
+  rpc PutWindSpeed(WindSpeed) returns (WindSpeedResponse) {}
+}
+
+message Sensor {
+  /*unique sensor identifier*/
+  string id = 1;
+}
+
+/*air temperature, measured in kelvin (K)*/
+message Temperature {
+  Sensor sensor = 1;
+  float  kelvin = 2;
+}
+
+message TemperatureResponse {}
+
+/*atmospheric pressure or barometric pressure, measured in Pascal (Pa)*/
+message BarometricPressure {
+  Sensor sensor = 1;
+  float  pascal = 2;
+}
+
+message BarometricPressureResponse {}
+
+/*wind speed or wind flow verlocity, measured in meter per second (m/s)*/
+message WindSpeed {
+  Sensor sensor           = 1;
+  float  meter_per_second = 2;
+}
+
+message WindSpeedResponse {}
